@@ -56,9 +56,8 @@ class ChessDataset(Dataset):
     
     def encode(self, text: str) -> torch.Tensor:
         """Convert text to tensor of token indices."""
-        # Handle unknown characters by mapping to a space
-        unk_idx = self.vocab.get(' ', 0)
-        indices = [self.vocab.get(c, unk_idx) for c in text]
+        # No unknown handling; assume all chars in vocab
+        indices = [self.vocab.get(c) for c in text]
         return torch.tensor(indices, dtype=torch.long)
     
     def decode(self, indices: torch.Tensor) -> str:
